@@ -8,10 +8,19 @@ const { promises: fs, createReadStream } = require('fs');
 const path = require('path');
 const { S3 } = require('aws-sdk');
 
-const s3 = new S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+// const s3 = new S3({
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+// });
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.S3_ACCESS_KEY,
+  secretAccessKey: process.env.S3_SECRET_KEY,
+  region: process.env.S3_REGION,
 });
+
+const bucketName = process.env.S3_BUCKET_NAME;
+
 
 const uploadDir = async (s3Path, bucketName) => {
   // Recursive getFiles from
